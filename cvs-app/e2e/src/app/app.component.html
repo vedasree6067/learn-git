@@ -1,0 +1,50 @@
+<table
+mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+  <ng-container matColumnDef="identity">
+    <th  mat-sort-header="identity" 
+          id="myApp-mat-header-stem"
+         class="account-name-color ms-column-left" 
+         mat-header-cell *matHeaderCellDef
+         >  
+      Account
+    </th>
+    <td class="ms-colors-name" mat-cell *matCellDef="let account"> 
+  <b> {{account.name}} - {{account.identity}} </b>
+  </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="cash">
+
+    <th mat-sort-header="cash" 
+      arrowPosition="before" class="ms-colors ms-column-right " 
+      mat-header-cell
+    *matHeaderCellDef> 
+    	<p class="available-cash-column-text">Available Cash 
+        <span class="available-cash-subtext">Today's Change</span>
+      </p>
+     </th>
+
+    <td class="ms-colors ms-column-right container-items-display-grid" mat-cell *matCellDef="let account"> 
+
+    <p class="available-cash-column-text">${{account.available_cash}}</p>
+     <span [style.color]="setColor(account.positive)" class="today-change-subtext-pos">
+     
+    {{setStatus(account.positive)}} {{account.today_change}}
+   </span>
+     </td>
+  </ng-container>
+
+
+  <tr class="ms-row-color"
+       mat-header-row
+       *matHeaderRowDef="displayedColumns"></tr>
+  <tr   class="ms-row-color"
+  		mat-row 
+        *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<button
+*ngIf="buttonClicked"
+  mat-button (click)="loadMoreAccounts()">Load More</button>
+
+
